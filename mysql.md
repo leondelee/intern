@@ -34,7 +34,7 @@ Glances 是一个由 Python 编写，使用 psutil 库来从系统抓取信息�
 
 更新源:
 
-    sudo apt-get update
+    sudo apt-get update 
 
 安装:
 

@@ -1,8 +1,35 @@
 # <center>使用Promethus + Grafana + Mysql完成对Ubuntu各项性能实时数据的监控</center>
-## 概述
-这篇文章将以Mysql数据库为例,介绍Prometheus+Grafana的具体使用方法.其中提到的所有指令均在Ubuntu16.04运行成功.
 ## 目录
+<!-- TOC -->
 
+- [使用Promethus + Grafana + Mysql完成对Ubuntu各项性能实时数据的监控](#center使用promethus--grafana--mysql完成对ubuntu各项性能实时数据的监控center)
+    - [1.数据介绍](#1数据介绍)
+    - [2.工具介绍](#2工具介绍)
+        - [2.1 Prometheus](#21-prometheus)
+            - [2.1.1 简介](#211-简介)
+            - [2.1.2 架构](#212-架构)
+            - [2.1.3 概念](#213-概念)
+                - [数据模型](#数据模型)
+                - [指标(Metrics)](#指标metrics)
+                - [实例(Instannces)和任务(Jobs)](#实例instannces和任务jobs)
+            - [2.1.4 安装](#214-安装)
+                - [配置go环境](#配置go环境)
+                - [使用预编译的二进制文件](#使用预编译的二进制文件)
+            - [2.1.5 配置文件](#215-配置文件)
+            - [2.1.6 运行](#216-运行)
+            - [2.1.7 与Mysql结合](#217-与mysql结合)
+            - [2.1.8 报警机制](#218-报警机制)
+        - [2.2 Grafana](#22-grafana)
+            - [2.2.1 安装](#221-安装)
+                - [Install Stable](#install-stable)
+                - [添加APT源](#添加apt源)
+                - [更新并安装:](#更新并安装)
+                - [启动Grafana服务](#启动grafana服务)
+            - [2.2.2 创建DataSource](#222-创建datasource)
+            - [2.2.3 创建Dashboard](#223-创建dashboard)
+<!-- /TOC -->
+## 概述
+这篇文章将以Mysql数据库为例,介绍Prometheus+Grafana的具体使用方法.其中提到的所有指令均在Ubuntu16.04运行.
 ## 1.数据介绍
 在这篇文章当中,我将把glances(一种linux系统性能监控工具)采集到的实时数据导入Mysql数据库当中,继而介绍Prometheus,Grafana以及Mysql三者结合起来的用法.
 <br>首先打开Glances(没有的朋友可以下载安装,这里不再赘述),并把数据上传到Web端:
@@ -146,9 +173,7 @@ Prometheus 客户端库主要提供四种主要的 metric 类型：
 #### 2.1.7 与Mysql结合
 
 接下来,我将实现Prmetheus对一开始提到的MySql数据的采集和监控.我在这里使用一个名叫prometheus-mysql-exporter的python3框架,它不是官方提供的框架,而是PyPI上的一个开源小项目.使用这个框架,我们可以自定义我们需要采集的数据,也就是说,我们可以选择Mysql数据库当中的任何一个表当中的任何一种或者多种数值数据进行采集和监控,比如我将会采集内存,可用内存,已使用内存,内存使用率,CPU使用率,CPU温度这几个数据.
-##### promethesu-mysql-exporter
-
-这个是PyPI上面的一个开源项目,项目地址是 https://pypi.org/project/prometheus-mysql-exporter/ ,使用之前你需要保证你的mysql-server是打开的,接下来的过程都默认mysql-server的地址是:localhost:3306.具体使用方法如下:
+<br>promethesu-mysql-exporter是PyPI上面的一个开源项目,项目地址是 https://pypi.org/project/prometheus-mysql-exporter/ ,使用之前你需要保证你的mysql-server是打开的,接下来的过程都默认mysql-server的地址是:localhost:3306.具体使用方法如下:
 
   - 环境配置:需要python3,pip3,以及libmysqlclient-dev.这三者都可以使用apt-get直接安装.
   - 安装:环境配置好以后,在命令行输入:
@@ -392,6 +417,7 @@ Dashboard是grafana的仪表盘,也就是呈现各种数据的地方.配置方�
     ![alertrule](https://github.com/leondelee/photos/blob/master/alertrule.png)
 
   - 保存
+
 最后,可以看到数据绘制成功:
 
   ![cputemp](https://github.com/leondelee/photos/blob/master/cputemp.png)

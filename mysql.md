@@ -20,7 +20,7 @@ Glances 是一个由 Python 编写，使用 psutil 库来从系统抓取信息�
 会得到下面输出:
 
     Glances web server started on http://0.0.0.0:61208/
-这表明我们可以通过"http://0.0.0.0:61208/"这个地址在网页上访问到glances监控得到的数据.在浏览器输入这个地址,我们得到了这样子的结果:
+这表明我们可以通过"http://0.0.0.0:61208/" 这个地址在网页上访问到glances监控得到的数据.在浏览器输入这个地址,我们得到了这样子的结果:
 
 ![glances_web](https://github.com/leondelee/photos/blob/master/glances_web.png)
 
